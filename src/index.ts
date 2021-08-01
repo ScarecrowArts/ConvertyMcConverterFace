@@ -39,6 +39,14 @@ client.on('message', async (message) => {
             const video = await new ffmpeg(tempFilePath)
             video.addCommand('-vcodec', 'libwebp');
             video.addCommand('-lossless', '1');
+
+            const ext = path.extname(tempFilePath);
+            if (ext == '.png' || ext == '.jpg' || ext == '.gif') {
+                video.addCommand('-qscale', '100');
+            } else {
+                video.addCommand('-qscale', '75');
+            }
+
             video.addCommand('-preset', 'default');
             video.addCommand('-loop', '0');
             video.setDisableAudio();
@@ -55,7 +63,6 @@ client.on('message', async (message) => {
             if (fs.statSync(finishedFilePath).size > 8_000_000) {
                 message.channel.send("uwu this file too fat and strong for me it's over 8mb");
             } else {
-
                 const message0 = message.channel.send("Here's your converted file: ", new Discord.MessageAttachment(finishedFilePath));
                 const message1 = message.channel.send("DEATH TO GIF AND JPEG");
                 await Promise.all([message0, message1]);
