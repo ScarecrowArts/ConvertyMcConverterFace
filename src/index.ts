@@ -24,7 +24,7 @@ client.on('message', async (message) => {
             return;
         }
 
-        message.channel.send("I'm starting to convert your file");
+        message.channel.send("Converting...");
 
         try {
             const tempName = uuid();
@@ -53,10 +53,12 @@ client.on('message', async (message) => {
             await video.save(finishedFilePath);
 
             message.channel.send("Here's your converted file: ", new Discord.MessageAttachment(finishedFilePath));
+            message.channel.send("DEATH TO GIF AND JPEG");
 
             fs.unlinkSync(tempFilePath);
         } catch (ex) {
             console.log(ex);
+            message.channel.send("I can't convert that file dummy, please try again <3");
         }
     }
 });
