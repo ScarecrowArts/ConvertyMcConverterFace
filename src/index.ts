@@ -52,8 +52,14 @@ client.on('message', async (message) => {
             const finishedFilePath = path.join(finishedDirPath, finishedName + '.webp');
             await video.save(finishedFilePath);
 
-            message.channel.send("Here's your converted file: ", new Discord.MessageAttachment(finishedFilePath));
-            message.channel.send("DEATH TO GIF AND JPEG");
+            if (fs.statSync(finishedFilePath).size > 8_000_000) {
+                message.channel.send("uwu this file too fat and strong for me it's over 8mb");
+            } else {
+
+                const message0 = message.channel.send("Here's your converted file: ", new Discord.MessageAttachment(finishedFilePath));
+                const message1 = message.channel.send("DEATH TO GIF AND JPEG");
+                await Promise.all([message0, message1]);
+            }
 
             fs.unlinkSync(tempFilePath);
         } catch (ex) {
