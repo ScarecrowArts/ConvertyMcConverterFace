@@ -27,12 +27,11 @@ client.on('message', async (message) => {
                 fs.mkdirSync(tempDirPath, {recursive: true});
             }
             const tempFilePath = path.join(tempDirPath, tempName + path.extname(attachment.url));
-            downloadFile(attachment.url, tempFilePath);
+            await downloadFile(attachment.url, tempFilePath);
 
             // Convert to webp
             const video = await new ffmpeg(tempFilePath)
             video.addCommand('-vcodec', 'libwebp');
-            console.log("AAAAAAAAAA");
             video.addCommand('-lossless', '1');
             video.addCommand('-preset', 'default');
             video.addCommand('-loop', '0');
@@ -46,6 +45,8 @@ client.on('message', async (message) => {
             }
             const finishedFilePath = path.join(finishedDirPath, finishedName + '.webp');
             await video.save(finishedFilePath);
+
+            message.channel.send("Here's your converted file: ", new Discord.MessageAttachment(finishedFilePath));
 
             fs.unlinkSync(tempFilePath);
         } catch (ex) {
