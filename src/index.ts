@@ -6,7 +6,7 @@ import {v4 as uuid} from 'uuid';
 import * as ffmpeg from 'ffmpeg';
 
 const client = new Discord.Client();
-let token: string|undefined = process.env.token;
+let token: string|undefined = process.env.TOKEN ?? process.env.token;
 if (fs.existsSync('token.txt')) {
     token = fs.readFileSync('token.txt', {encoding: 'utf-8'});
 }
