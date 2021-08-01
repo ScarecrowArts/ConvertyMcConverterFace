@@ -58,7 +58,7 @@ client.on('message', async (message) => {
             fs.unlinkSync(tempFilePath);
         } catch (ex) {
             console.log(ex);
-            message.channel.send("I need a supported movie file dummy, please try again <3");
+            message.channel.send("I can't convert that file dummy, please try again <3");
         }
     }
 });
