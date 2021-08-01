@@ -20,6 +20,8 @@ client.on('message', async (message) => {
             return;
         }
 
+        message.channel.send("I'm starting to convert your file");
+
         try {
             const tempName = uuid();
             const tempDirPath = "./tempInput";
