@@ -61,9 +61,9 @@ client.on('message', async (message) => {
             await video.save(finishedFilePath);
 
             if (fs.statSync(finishedFilePath).size > 8_000_000) {
-                message.channel.send("uwu this file too fat and strong for me it's over 8mb");
+                message.channel.send("uwu this file too fat and strong for me to send, it's over 8mb");
             } else {
-                const message0 = message.channel.send("Here's your converted file: ", new Discord.MessageAttachment(finishedFilePath));
+                const message0 = message.channel.send("Here's your converted file(Discord preview doesn't load, open in browser): ", new Discord.MessageAttachment(finishedFilePath));
                 const message1 = message.channel.send("DEATH TO GIF AND JPEG");
                 await Promise.all([message0, message1]);
             }
